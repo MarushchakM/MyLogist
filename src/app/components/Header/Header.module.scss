@@ -1,0 +1,28 @@
+@use '../../styles/variable' as vars;
+.header {
+  display: flex;
+  justify-content: space-between;
+  padding: 24px 16px;
+  border-bottom: 1px solid vars.$colorBlack;
+  
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    h1{
+      margin: 0;
+      font-size: 24px;
+    }
+  }
+  .menuItem {
+    border: 1px solid vars.$colorBlack;
+    padding: 6px 8px;
+    border-radius: 6px;
+    transition-duration: vars.$duration;
+    &:hover{
+      background-color: vars.$colorBlack;
+      color: vars.$colorWhite;
+      transition-duration: 0.3s;
+    }
+  }
+}

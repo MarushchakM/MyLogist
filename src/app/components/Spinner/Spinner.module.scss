@@ -1,0 +1,22 @@
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.spinner{
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  .spinnerIcon {
+    animation-name: spin;        
+    animation-duration: 2s;      
+    animation-iteration-count: infinite; 
+    animation-timing-function: linear; 
+    width: 36px;
+    height: 36px;
+  }
+}

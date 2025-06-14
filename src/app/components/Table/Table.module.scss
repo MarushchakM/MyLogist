@@ -1,0 +1,14 @@
+@use '../../styles/variable' as vars;
+
+.table {
+  width: 100%;
+  background-color: vars.$colorGrey-200;
+  padding: 8px;
+  border-radius: 8px;
+  th{
+    text-align: left;
+  }
+  .icon {
+    width: 24px;
+  }
+}
