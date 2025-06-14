@@ -1,5 +1,5 @@
-import { Button } from "@/app/components/Button";
-import { Container } from "@/app/components/Container";
+import { Button } from "@/components/Button";
+import { Container } from "@/components/Container";
 import { trucksPath } from "@/paths";
 
 export default function NotFound() {
@@ -9,6 +9,6 @@ export default function NotFound() {
       <Button href={trucksPath()} variant="secondary">
         Повернутись до списку
       </Button>
-    </Container> 
-  )
+    </Container>
+  );
 }

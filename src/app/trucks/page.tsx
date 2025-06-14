@@ -1,6 +1,6 @@
-import { Container } from "../components/Container";
-import { Heading } from "../components/Heading";
-import { TruckTable } from "../features/trucks/components/TruckTable";
+import { Container } from "@/components/Container";
+import { Heading } from "@/components/Heading";
+import { TruckTable } from "@/features/trucks/components/TruckTable";
 
 const TrackPage = async () => {
   return (
@@ -9,6 +9,6 @@ const TrackPage = async () => {
       <TruckTable />
     </Container>
   );
-}
+};
 
 export default TrackPage;
