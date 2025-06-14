@@ -8,14 +8,14 @@ import { LucideTrash } from "lucide-react";
 import { deleteTruck } from "@/features/trucks/actions/deleteTruck";
 import { notFound } from "next/navigation";
 
-type TicketPageProps = {
-  params: {
-    truckId: string;
-  };
-};
-
-const TruckPage = async ({ params }: TicketPageProps) => {
-  const truck = await getTruck(params.truckId);
+const TruckPage = async ({
+  params,
+}: {
+  params: Promise<{ truckId: string }>
+  }) => {
+  
+  const { truckId } = await params;
+  const truck = await getTruck(truckId);
 
   if (!truck) {
     notFound();
