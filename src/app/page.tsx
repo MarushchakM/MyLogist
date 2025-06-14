@@ -1,7 +1,7 @@
-import { Heading } from "./components/Heading";
+import { Heading } from "@/components/Heading";
 
 export default function Home() {
   return (
-    <Heading title='Головна сторінка' description='Контент головної сторінки' />
+    <Heading title="Головна сторінка" description="Контент головної сторінки" />
   );
 }
