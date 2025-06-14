@@ -14,7 +14,7 @@ type Props = {
   }
 }
 
-const TruckPage: React.FC<Props> = async ({params}) => {
+const TruckPage = async ({params}: Props) => {
   const truck = await getTruck(params.truckId);
   
   if (!truck) {
@@ -32,7 +32,7 @@ const TruckPage: React.FC<Props> = async ({params}) => {
           {truck && (
             <form action={deleteTruck.bind(null, truck.id)}>
               <Button variant="danger" type="submit">
-                <LucideTrash className="h-4 w-4" />
+                <LucideTrash />
               </Button>
             </form>
           )}
