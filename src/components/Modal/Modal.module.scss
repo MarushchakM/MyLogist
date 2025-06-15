@@ -1,0 +1,39 @@
+@use '../../styles/variable' as vars;
+
+
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(vars.$colorBlack, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  .content{
+    min-width: 300px;
+    background-color: vars.$colorWhite;
+    padding: 24px 16px;
+    border-radius: 12px;
+    text-align: center;
+    position: relative;
+    .closeBtn {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      .close {
+        width: 16px;
+        height: 16px;
+      }
+    }
+    h3 {
+      margin: 0;
+    }
+  }
+}
+
+.hide {
+  display: none;
+}

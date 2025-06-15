@@ -1,4 +1,15 @@
 @use '../../styles/variable' as vars;
+.primary {
+  background-color: #2ab917;
+  border: none;
+  padding: 8px 8px;
+  border-radius: 6px;
+  cursor: pointer;
+  &:hover {
+    background-color: #1a9709;
+    transition-duration: vars.$duration;
+  }
+}
 .secondary {
   border: 1px solid vars.$colorBlack;
   padding: 8px 8px;
@@ -31,7 +42,7 @@
 
 
 .danger {
-  background-color: #dc2626; /* червоний */
+  background-color: #dc2626;
   color: #fff;
   border: none;
   padding: 10px 16px;
