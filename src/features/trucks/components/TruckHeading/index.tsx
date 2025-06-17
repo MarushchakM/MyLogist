@@ -24,7 +24,7 @@ export const TruckHeading = () => {
           title='Добавити авто'
           onClose={() => setIsOpen(false)}
         >
-          <CreateForm />
+          <CreateForm onSended={() => setIsOpen(false)}/>
         </Modal>
       }
     </div>

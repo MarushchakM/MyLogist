@@ -6,14 +6,22 @@ type Inputs = {
   number: string
 }
 
-export const CreateForm = () => {
+type Props = {
+  onSended: () => void;
+}
+
+export const CreateForm: React.FC<Props> = ({onSended}) => {
   const {
     register,
     handleSubmit,
   } = useForm<Inputs>();
 
-  const onSubmit: SubmitHandler<Inputs> = (data) => createTruck(data.number);
-
+  const onSubmit: SubmitHandler<Inputs> = (data) => {
+    createTruck(data.number);
+    setTimeout(() => {
+      onSended();
+    }, 2000)
+  }
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <div>
