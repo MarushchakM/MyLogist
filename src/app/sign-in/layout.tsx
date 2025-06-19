@@ -1,4 +1,5 @@
 import { auth } from "@/lib/auth";
+import { homePath } from "@/paths";
 import { Geist, Geist_Mono } from "next/font/google";
 import { redirect } from "next/navigation";
 
@@ -19,7 +20,8 @@ export default async function RootLayout({
 }>) {
   const session = await auth();
   
-  if (session) redirect("/");
+  console.log('signIn', session);
+  if (session) redirect(homePath());
 
   return (
     <html lang="en">

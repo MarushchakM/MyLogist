@@ -4,6 +4,7 @@ import "../globals.scss";
 import { Header } from "@/components/Header";
 import { auth } from "@/lib/auth";
 import { redirect } from "next/navigation";
+import { signInPath } from "@/paths";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -27,8 +28,8 @@ export default async function RootLayout({
 }>) {
 
   const session = await auth();
-  
-  if (!session) redirect("/sign-in");
+   console.log('home', session);
+  if (!session) redirect(signInPath());
   
   return (
     <html lang="en">
