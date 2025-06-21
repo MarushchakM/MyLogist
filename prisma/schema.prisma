@@ -9,9 +9,9 @@ datasource db {
 }
 
 model Truck {
-  id String @id @default(cuid())
+  id     String @id @default(cuid())
   number String @unique
-  status    TruckStatus @default(FREE)
+  status TruckStatus @default(FREE)
 }
 
 enum TruckStatus {
