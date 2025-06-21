@@ -12,6 +12,7 @@ export const TruckTable = async () => {
   };
 
   const trucks = await getTrucks();
+  
   const sortedTruck = trucks.map((item) => ({
     number: item.number,
     status: statusMap[item.status],

@@ -28,7 +28,6 @@ export default async function RootLayout({
 }>) {
 
   const session = await auth();
-   console.log('home', session);
   if (!session) redirect(signInPath());
   
   return (
