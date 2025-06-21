@@ -4,8 +4,6 @@ import { createTruck } from "../../actions/createTruck";
 import { Input } from "@/components/Input";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { CreateTruckSchema } from "@/schemas/CreateTruckSchema";
-import { getTrucks } from "../../queries/getTrucks";
-import { getTruckByNumber } from "../../queries/getTruck";
 
 export type CreateTruckInputs = {
   truckNumber: string;
@@ -49,10 +47,6 @@ export const CreateForm: React.FC<Props> = ({onSended}) => {
         message: "Сталася невідома помилка. Спробуйте ще раз.",
       });
     }
-      // createTruck(data.truckNumber);
-      // setTimeout(() => {
-      //   onSended();
-      // }, 2000);
   }
 
   return (

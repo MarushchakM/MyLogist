@@ -2,14 +2,14 @@
 
 import { prisma } from '@/lib/prisma';
 import { trucksPath } from '@/paths';
-import { TruckStatus } from '@prisma/client';
+import { Truck, TruckStatus } from '@prisma/client';
 import { revalidatePath } from 'next/cache';
 
 type CreateTruckResult = {
   success: boolean;
   error?: string;
   message?: string;
-  truck?: any;
+  truck?: Truck;
 };
 
 export async function createTruck(truckNumber: string): Promise<CreateTruckResult> {
@@ -33,7 +33,9 @@ export async function createTruck(truckNumber: string): Promise<CreateTruckResul
 
     return { success: true, message: 'Автомобіль успішно додано.', truck: newTruck };
 
-  } catch (error: any) {
-    return { success: false, error: 'Сталася внутрішня помилка сервера при додаванні авто.' };
+  } catch (error: unknown) {
+    console.error("Помилка під час створення автомобіля:", error);
+    
+    return { success: false, error: 'Сталася внутрішня помилка сервера при додаванні авто.',  };
   }
 }
