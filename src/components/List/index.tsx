@@ -1,6 +1,6 @@
 'use client';
 
-import { LucideChevronRight, LucideIcon } from "lucide-react";
+import { LucideIcon } from "lucide-react";
 import style from "./List.module.scss";
 import { ListItem } from "../ListItem";
 
