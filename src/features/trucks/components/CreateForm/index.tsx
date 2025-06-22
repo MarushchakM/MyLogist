@@ -1,9 +1,12 @@
 import { Button } from "@/components/Button";
 import { useForm, SubmitHandler } from "react-hook-form"
 import { createTruck } from "../../actions/createTruck";
+import { Input } from "@/components/Input";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { CreateTruckSchema } from "@/schemas/CreateTruckSchema";
 
-type Inputs = {
-  number: string
+export type CreateTruckInputs = {
+  truckNumber: string;
 }
 
 type Props = {
@@ -14,21 +17,48 @@ export const CreateForm: React.FC<Props> = ({onSended}) => {
   const {
     register,
     handleSubmit,
-  } = useForm<Inputs>();
+    setError,
+    formState: { errors, isSubmitting }
+  } = useForm<CreateTruckInputs>({
+    resolver: yupResolver(CreateTruckSchema),
+    mode: "onBlur",
+  });
+  
+  
+  const onSubmit: SubmitHandler<CreateTruckInputs> = async (data) => {
+    setError("truckNumber", { message: undefined });
 
-  const onSubmit: SubmitHandler<Inputs> = (data) => {
-    createTruck(data.number);
-    setTimeout(() => {
-      onSended();
-    }, 2000)
+    try {
+      const result = await createTruck(data.truckNumber);
+
+      if (!result.success) {
+        setError("truckNumber", {
+          type: "manual",
+          message: result.error,
+        });
+      } else {
+        onSended();
+      }
+    } catch (error) {
+
+      console.error("Помилка при додаванні авто:", error);
+      setError("truckNumber", {
+        type: "manual",
+        message: "Сталася невідома помилка. Спробуйте ще раз.",
+      });
+    }
   }
+
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <div>
-        <label>Введіть номенр авто</label>
-        <input type="text" placeholder="BC0000IX" {...register("number")}/>
-      </div>
-      <Button type="submit">Добавити авто</Button>
+      <Input
+        register={register}
+        name="truckNumber"
+        label="Введіть номенр авто"
+        placeholder="AA1234AA"
+        error={errors.truckNumber}
+      />
+      <Button type="submit">{isSubmitting ? "Додавання..." : "Добавити авто"}</Button>
     </form>
   )
 }

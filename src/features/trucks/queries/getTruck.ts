@@ -7,3 +7,11 @@ export const getTruck = async (id: string) => {
     },
   });
 };
+
+export const getTruckByNumber = async (number: string) => {
+  return await prisma.truck.findUnique({
+    where: {
+      number,
+    },
+  });
+};
