@@ -1,0 +1,36 @@
+@use '../../styles/variable' as vars;
+
+.linkWrapper{
+  .linkBlock{
+    display: flex;
+    gap: 8px;
+    .arrow {
+      color: vars.$colorWhite;
+      transition-duration: vars.$duration;
+      cursor: pointer;
+      &:hover {
+        color: vars.$colorYellow;
+        transition-duration: vars.$duration;
+      }
+    }
+    .arrowRotate {
+      transform: rotate(90deg);
+      transition-duration: vars.$duration;
+    }
+  }
+  ul {
+    border: none;
+    padding: 0 16px;
+    overflow: hidden;
+    max-height: 0;
+    transition: max-height vars.$duration ease-in-out;
+  }
+  .linkWrapper:first-child {
+    padding: 18px 0 0;
+  }
+}
+.linkWrapperOpen {
+  ul {
+    max-height: 1000px;
+  }
+}

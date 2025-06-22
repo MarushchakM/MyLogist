@@ -8,6 +8,7 @@ import { signInPath } from "@/paths";
 import { Aside } from "@/components/Aside";
 import style from "./layout.module.scss";
 import { getNumbersTrucks } from "@/features/trucks/queries/getNumbersTrucks";
+import { getNumbersTrailers } from "@/features/trailers/queries/getNumbersTrailers";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -34,12 +35,13 @@ export default async function RootLayout({
   if (!session) redirect(signInPath());
 
   const trucks = await getNumbersTrucks();
+  const trailers = await getNumbersTrailers();
   
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
         <div className={style.layoutContainer}>
-          <Aside trucks={trucks} />
+          <Aside trucks={trucks} trailers={trailers} />
           <main>{children}</main>
         </div>
         

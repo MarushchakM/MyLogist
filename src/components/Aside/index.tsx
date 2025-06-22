@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import style from './aside.module.scss';
-import { homePath, trucksPath } from '@/paths';
+import { homePath, trailersPath, trucksPath } from '@/paths';
 import { List } from '../List';
 import { LucideCar, LucideCaravan, LucideUser } from 'lucide-react';
 
@@ -15,11 +15,19 @@ type TruckNumber = Prisma.TruckGetPayload<{
   };
 }>;
 
+type TrailerNumber = Prisma.TrailerGetPayload<{
+  select: {
+    id: true;
+    number: true;
+  };
+}>;
+
 type Props = {
   trucks: TruckNumber[];
+  trailers: TrailerNumber[];
 }
 
-export const Aside: React.FC<Props> = ({ trucks }) => {  
+export const Aside: React.FC<Props> = ({ trucks, trailers }) => {  
   const listData = [
     {
       title: "Мої Авто",
@@ -28,7 +36,14 @@ export const Aside: React.FC<Props> = ({ trucks }) => {
         {title: truck.number, href: trucksPath() + '/' + truck.id }
       )),
     },
-    { title: "Мої Причепи", href: "/1", icon: LucideCaravan },
+    {
+      title: "Мої Причепи",
+      href: trailersPath(),
+      icon: LucideCaravan,
+      children: trailers.map(trailer => (
+        {title: trailer.number, href: trailersPath() + '/' + trailer.id }
+      )),
+    },
     { title: "Мої Водії", href: "/2", icon: LucideUser },
   ];
 
