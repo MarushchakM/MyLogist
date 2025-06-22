@@ -1,0 +1,33 @@
+@use '../../styles/variable' as vars;
+
+.asideContainer{
+    width: 300px;
+    height: 100vh;
+  .aside {
+    width: 300px;
+    height: 100vh;
+    background-color: vars.$primaryDark;
+    position: fixed;
+    top: 0;
+    left: 0;
+    padding: 25px 25px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+  .logo {
+    display: flex;
+    align-items: flex-end;
+    gap: 10px;
+    .logoIcon {
+      display: block;
+    }
+    h1 {
+      margin: 0;
+      font-size: 16px;
+      line-height: 26px;
+      font-weight: bold;
+      color: vars.$colorWhite;
+    }
+  }
+}

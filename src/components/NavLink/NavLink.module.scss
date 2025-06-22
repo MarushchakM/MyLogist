@@ -1,0 +1,16 @@
+@use '../../styles/variable' as vars;
+
+.link {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  color: vars.$colorWhite;
+  transition-duration: vars.$duration;
+  &:hover {
+    color: vars.$colorYellow;
+    transition-duration: vars.$duration;
+  }
+}
+.active {
+  color: vars.$colorYellow;
+}
