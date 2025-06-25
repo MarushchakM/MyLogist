@@ -1,4 +1,4 @@
-'use client';
+"use client"
 
 import Link from 'next/link';
 import style from './aside.module.scss';
@@ -7,6 +7,7 @@ import { List } from '../List';
 import { LucideCar, LucideCaravan, LucideUser } from 'lucide-react';
 
 import { Prisma } from '@prisma/client';
+import { ListItem } from '../ListItem';
 
 type TruckNumber = Prisma.TruckGetPayload<{
   select: {
@@ -48,18 +49,21 @@ export const Aside: React.FC<Props> = ({ trucks, trailers }) => {
   ];
 
   return (
-    <div className={style.asideContainer}>
-      <aside className={style.aside}>
-        <Link href={homePath()} className={style.logo}>
-          <img className={style.logoIcon} src="./logo.png" alt="logo" />
-          <h1>АГРОЛОГІСТИКА</h1>
-        </Link>
-        
-        <nav className={style.nav}>
-          <List linksData={listData}/>
-        </nav>
-      </aside>
-    </div>
-    
+    <aside className={style.aside}>
+      <Link href={homePath()} className={style.logo}>
+        <img className={style.logoIcon} src="./logo.png" alt="logo" />
+        <h1>АГРОЛОГІСТИКА</h1>
+      </Link>
+      
+      <nav className={style.nav}>
+        <List linksData={listData}/>
+
+        {/* <ul className={style.list}>
+          {listData.map((link, index) => (
+            <ListItem key={index} linkData={link} />
+          ))}
+      </ul> */}
+      </nav>
+    </aside>
   )
 }

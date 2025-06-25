@@ -9,6 +9,7 @@ import { Aside } from "@/components/Aside";
 import style from "./layout.module.scss";
 import { getNumbersTrucks } from "@/features/trucks/queries/getNumbersTrucks";
 import { getNumbersTrailers } from "@/features/trailers/queries/getNumbersTrailers";
+import StoreProvider from "./StoreProvider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -40,11 +41,12 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
-        <div className={style.layoutContainer}>
-          <Aside trucks={trucks} trailers={trailers} />
-          <main>{children}</main>
-        </div>
-        
+        <StoreProvider>
+          <div className={style.layoutContainer}>
+            <Aside trucks={trucks} trailers={trailers} />
+            <main className={style.main}>{children}</main>
+          </div>
+        </StoreProvider>
       </body>
     </html>
   );

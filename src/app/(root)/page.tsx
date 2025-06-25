@@ -1,8 +1,11 @@
-import { Heading } from "@/components/Heading";
+import { CounterDisplay } from "@/components/CounterDisplay";
 
 const Home = async () => {
+  
   return (
-    <Heading title="Головна сторінка" description="Контент головної сторінки" />
+    // <Heading title="Головна сторінка" description="Контент головної сторінки" />
+    <CounterDisplay />
+    
   );
 }
 
