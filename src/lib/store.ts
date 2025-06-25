@@ -1,11 +1,12 @@
 import { configureStore } from '@reduxjs/toolkit';
-import counterReducer from './features/trucks/counterSlice';
 import trucksReducer from './features/trucks/trucksSlice';
+import trailersReducer from './features/trailers/trailersSlice';
+
 export const makeStore = () => {
   return configureStore({
     reducer: {
-      counter: counterReducer,
       trucks: trucksReducer,
+      trailers: trailersReducer,
     },
   })
 }

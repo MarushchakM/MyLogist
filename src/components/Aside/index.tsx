@@ -7,14 +7,10 @@ import { List } from '../List';
 import { LucideCar, LucideCaravan, LucideUser } from 'lucide-react';
 
 import { Prisma } from '@prisma/client';
-import { ListItem } from '../ListItem';
-
-type TruckNumber = Prisma.TruckGetPayload<{
-  select: {
-    id: true;
-    number: true;
-  };
-}>;
+import { useAppDispatch, useAppSelector } from '@/lib/hooks';
+import { fetchTrucks, selectTruckNumbersAndIds } from '@/lib/features/trucks/trucksSlice';
+import { useEffect } from 'react';
+import { fetchTrailers, selectTrailersNumbersAndIds } from '@/lib/features/trailers/trailersSlice';
 
 type TrailerNumber = Prisma.TrailerGetPayload<{
   select: {
@@ -24,16 +20,24 @@ type TrailerNumber = Prisma.TrailerGetPayload<{
 }>;
 
 type Props = {
-  trucks: TruckNumber[];
   trailers: TrailerNumber[];
 }
 
-export const Aside: React.FC<Props> = ({ trucks, trailers }) => {  
+export const Aside: React.FC<Props> = () => {  
+  const trucks = useAppSelector(selectTruckNumbersAndIds);
+  const trailers = useAppSelector(selectTrailersNumbersAndIds);
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(fetchTrucks());
+    dispatch(fetchTrailers());
+  }, [dispatch]);
+  
   const listData = [
     {
       title: "Мої Авто",
       href: trucksPath(),
-      icon: LucideCar, children: trucks.map(truck => (
+      icon: LucideCar, children: trucks?.map(truck => (
         {title: truck.number, href: trucksPath() + '/' + truck.id }
       )),
     },
@@ -41,7 +45,7 @@ export const Aside: React.FC<Props> = ({ trucks, trailers }) => {
       title: "Мої Причепи",
       href: trailersPath(),
       icon: LucideCaravan,
-      children: trailers.map(trailer => (
+      children: trailers?.map(trailer => (
         {title: trailer.number, href: trailersPath() + '/' + trailer.id }
       )),
     },
@@ -57,12 +61,6 @@ export const Aside: React.FC<Props> = ({ trucks, trailers }) => {
       
       <nav className={style.nav}>
         <List linksData={listData}/>
-
-        {/* <ul className={style.list}>
-          {listData.map((link, index) => (
-            <ListItem key={index} linkData={link} />
-          ))}
-      </ul> */}
       </nav>
     </aside>
   )

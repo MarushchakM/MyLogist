@@ -7,7 +7,6 @@ import { redirect } from "next/navigation";
 import { signInPath } from "@/paths";
 import { Aside } from "@/components/Aside";
 import style from "./layout.module.scss";
-import { getNumbersTrucks } from "@/features/trucks/queries/getNumbersTrucks";
 import { getNumbersTrailers } from "@/features/trailers/queries/getNumbersTrailers";
 import StoreProvider from "./StoreProvider";
 
@@ -35,7 +34,6 @@ export default async function RootLayout({
   const session = await auth();
   if (!session) redirect(signInPath());
 
-  const trucks = await getNumbersTrucks();
   const trailers = await getNumbersTrailers();
   
   return (
@@ -43,7 +41,7 @@ export default async function RootLayout({
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
         <StoreProvider>
           <div className={style.layoutContainer}>
-            <Aside trucks={trucks} trailers={trailers} />
+            <Aside trailers={trailers} />
             <main className={style.main}>{children}</main>
           </div>
         </StoreProvider>

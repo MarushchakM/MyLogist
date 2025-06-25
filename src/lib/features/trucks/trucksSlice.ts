@@ -1,26 +1,18 @@
-import { getNumbersTrucks } from "@/features/trucks/queries/getNumbersTrucks";
 import { RootState } from "@/lib/store";
-import { Prisma } from "@prisma/client";
-import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { Truck } from "@prisma/client";
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
 export const fetchTrucks = createAsyncThunk(
   'trucks/fetchTrucks',
   async () => {
-    const data = await getNumbersTrucks();
-    console.log('Дані з getNumbersTrucks:', data);
+    const response = await fetch('/api/trucks');
+    const data: Truck[] = await response.json();
     return data;
   },
 );
 
-type TruckNumber = Prisma.TruckGetPayload<{
-  select: {
-    id: true;
-    number: true;
-  };
-}>;
-
 interface TrucksState {
-  trucks: TruckNumber[] | null;
+  trucks: Truck[] | null;
 }
 
 const initialState: TrucksState = {
@@ -33,12 +25,22 @@ export const trucksSlice = createSlice({
   reducers: {},
   extraReducers: builder => {
     builder.addCase(fetchTrucks.fulfilled, (state, action) => {
-      console.log('Payload в Redux Fulfilled (слайс):', action.payload);
       state.trucks = action.payload;
     });
   },
 });
 
 export const selectTrucks = (state: RootState) => state.trucks.trucks;
+
+export const selectTruckNumbersAndIds = (state: RootState) => {
+  if (!state.trucks.trucks) {
+    return null;
+  }
+  return state.trucks.trucks.map(truck => ({
+    id: truck.id,
+    number: truck.number,
+  }));
+};
+
 export default trucksSlice.reducer;
 
