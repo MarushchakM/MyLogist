@@ -13,10 +13,12 @@ export const fetchTrucks = createAsyncThunk(
 
 interface TrucksState {
   trucks: Truck[] | null;
+  loaded: boolean;
 }
 
 const initialState: TrucksState = {
   trucks: null,
+  loaded: false,
 };
 
 export const trucksSlice = createSlice({
@@ -24,13 +26,20 @@ export const trucksSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: builder => {
-    builder.addCase(fetchTrucks.fulfilled, (state, action) => {
+    
+    builder
+    .addCase(fetchTrucks.pending, (state) => {
+      state.loaded = true;
+    })
+    .addCase(fetchTrucks.fulfilled, (state, action) => {
+      state.loaded = false;
       state.trucks = action.payload;
     });
   },
 });
 
 export const selectTrucks = (state: RootState) => state.trucks.trucks;
+export const selectTrucksLoading = (state: RootState) => state.trucks.loaded;
 
 export const selectTruckNumbersAndIds = (state: RootState) => {
   if (!state.trucks.trucks) {

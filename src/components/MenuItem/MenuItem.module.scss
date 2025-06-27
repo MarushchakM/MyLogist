@@ -1,5 +1,4 @@
 @use '../../styles/variable' as vars;
-
 .linkWrapper{
   .linkBlock{
     display: flex;
@@ -18,19 +17,19 @@
       transition-duration: vars.$duration;
     }
   }
-  ul {
-    border: none;
-    padding: 0 16px;
-    overflow: hidden;
-    max-height: 0;
-    transition: max-height vars.$duration ease-in-out;
-  }
-  .linkWrapper:first-child {
-    padding: 18px 0 0;
-  }
+  // ul {
+  //   border: none;
+  //   padding: 0 16px;
+  //   overflow: hidden;
+  //   max-height: 0;
+  //   transition: max-height vars.$duration ease-in-out;
+  // }
+  // .linkWrapper:first-child {
+  //   padding: 18px 0 0;
+  // }
 }
-.linkWrapperOpen {
-  ul {
-    max-height: 1000px;
-  }
-}
+// .linkWrapperOpen {
+//   ul {
+//     max-height: 1000px;
+//   }
+// }
