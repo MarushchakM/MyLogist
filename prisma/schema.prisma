@@ -8,13 +8,47 @@ datasource db {
   directUrl = env("DIRECT_URL")
 }
 
+model User {
+  id           String    @id @default(cuid())
+  email        String    @unique
+  password     String
+  role         Role      @default(DRIVER)
+  phoneNumber  String    @unique
+  firstName    String
+  lastName     String
+  middleName   String?
+  avatarUrl    String?
+
+  dispatcherId String?
+  dispatcher   User?      @relation("DispatcherToDrivers", fields: [dispatcherId], references: [id])
+  drivers      User[]     @relation("DispatcherToDrivers")
+
+  trucks       Truck[]    @relation("UserTrucks")
+  trailers     Trailer[]  @relation("UserTrailers")
+
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime   @updatedAt
+}
+
+enum Role {
+  ADMIN
+  DISPATCHER
+  DRIVER
+}
+
 model Truck {
-  id     String      @id @default(cuid())
-  number String      @unique
-  status TruckStatus @default(FREE)
+  id        String      @id @default(cuid())
+  number    String      @unique
+  status    TruckStatus @default(FREE)
+  avatarUrl String?
 
   trailer   Trailer? @relation(fields: [trailerId], references: [id])
   trailerId String?  @unique
+
+  driverId  String?
+  driver    User?    @relation("UserTrucks", fields: [driverId], references: [id])
+
+  documents Document[] @relation("TruckDocuments")
 }
 
 enum TruckStatus {
@@ -24,15 +58,60 @@ enum TruckStatus {
 }
 
 model Trailer {
-  id     String        @id @default(cuid())
-  number String        @unique
-  status TrailerStatus @default(FREE)
+  id           String        @id @default(cuid())
+  number       String        @unique
+  status       TrailerStatus @default(FREE)
+  type         TrailerType
+  avatarUrl    String?
 
-  truck Truck?
+  truck        Truck?
+
+  driverId     String?
+  driver       User?    @relation("UserTrailers", fields: [driverId], references: [id])
+
+  documents    Document[] @relation("TrailerDocuments")
 }
 
 enum TrailerStatus {
   FREE
   IN_WORKSHOP
   ON_ROAD
+}
+
+enum TrailerType {
+  REFRIGERATOR     // Рефрежератор
+  TILT             // Тент
+  TIPPER           // Самоскид
+  TANK_BULK        // Бочка сипуча
+  TANK_LIQUID      // Бочка наливна
+}
+
+model Document {
+  id          String        @id @default(cuid())
+  type        DocumentType
+  expiresAt   DateTime
+  createdAt   DateTime      @default(now())
+
+  truckId     String?
+  truck       Truck?        @relation("TruckDocuments", fields: [truckId], references: [id])
+
+  trailerId   String?
+  trailer     Trailer?      @relation("TrailerDocuments", fields: [trailerId], references: [id])
+
+  images      DocumentImage[]
+}
+
+model DocumentImage {
+  id         String   @id @default(cuid())
+  url        String  
+  documentId String
+  document   Document @relation(fields: [documentId], references: [id])
+}
+
+enum DocumentType {
+  INSURANCE_UA
+  INSURANCE_GREEN
+  TECH_INSPECTION
+  EKMT
+  TACHOGRAPH
 }
