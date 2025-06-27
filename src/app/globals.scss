@@ -1,5 +1,8 @@
 @use "@/styles/variable" as vars;
-@import "normalize.css";
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
 
 body {
   font-family: Arial, Helvetica, sans-serif;

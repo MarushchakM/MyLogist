@@ -1,0 +1,36 @@
+@use '../../styles/variable' as vars;
+
+.aside {
+  width: 300px;
+  min-height: 100vh;
+  background-color: vars.$primaryDark;
+  padding: 25px 25px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  .logo {
+    display: flex;
+    align-items: flex-end;
+    gap: 10px;
+    .logoIcon {
+      display: block;
+    }
+    h1 {
+      margin: 0;
+      font-size: 16px;
+      line-height: 26px;
+      font-weight: bold;
+      color: vars.$colorWhite;
+    }
+  }
+  .list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    border-bottom: 1px solid vars.$colorWhite;
+    padding-bottom: 16px;
+  }
+}
