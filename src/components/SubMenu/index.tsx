@@ -49,16 +49,21 @@ export const SubMenu: React.FC<Props> = ({sectionId, shouldFetch}) => {
     return false;
   });
 
-  useEffect(() => {
+    useEffect(() => {
     if (shouldFetch) {
-      const fetchFn = {
-        trucks: fetchTrucks,
-        trailers: fetchTrailers
-      }[sectionId];
-
-      dispatch(fetchFn());
+      if (sectionId === 'trucks') {
+        dispatch(fetchTrucks());
+      } else if (sectionId === 'trailers') {
+        dispatch(fetchTrailers());
+      }
     }
-  }, [dispatch, sectionId, shouldFetch]);
+    }, [dispatch, sectionId, shouldFetch]);
+  //       trucks: fetchTrucks,
+  //       trailers: fetchTrailers
+  //     }[sectionId];
+
+  //     dispatch(fetchFn());
+  // }, [dispatch, sectionId, shouldFetch]);
 
   return (
     <ul className={style.subMenu}>
