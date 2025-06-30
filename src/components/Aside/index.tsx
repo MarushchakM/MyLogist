@@ -4,21 +4,9 @@ import Link from 'next/link';
 import style from './aside.module.scss';
 import { homePath, trailersPath, trucksPath } from '@/paths';
 import { LucideCar, LucideCaravan } from 'lucide-react';
-import { Prisma } from '@prisma/client';
 import { MenuItem } from '../MenuItem';
 
-type TrailerNumber = Prisma.TrailerGetPayload<{
-  select: {
-    id: true;
-    number: true;
-  };
-}>;
-
-type Props = {
-  trailers: TrailerNumber[];
-}
-
-export const Aside: React.FC<Props> = () => {  
+export const Aside = () => {  
   return (
     <aside className={style.aside}>
       <Link href={homePath()} className={style.logo}>

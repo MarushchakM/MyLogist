@@ -34,14 +34,12 @@ export default async function RootLayout({
   const session = await auth();
   if (!session) redirect(signInPath());
 
-  const trailers = await getNumbersTrailers();
-  
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
         <StoreProvider>
           <div className={style.layoutContainer}>
-            <Aside trailers={trailers} />
+            <Aside />
             <main className={style.main}>{children}</main>
           </div>
         </StoreProvider>

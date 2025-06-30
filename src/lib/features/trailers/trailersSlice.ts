@@ -14,12 +14,12 @@ export const fetchTrailers = createAsyncThunk(
 
 interface TrailerState {
   trailers: Trailer[] | null;
-  loaded: boolean;
+  isLoading: boolean;
 }
 
 const initialState: TrailerState = {
   trailers: null,
-  loaded: false,
+  isLoading: false,
 };
 
 export const trailersSlice = createSlice({
@@ -29,17 +29,17 @@ export const trailersSlice = createSlice({
   extraReducers: builder => {
     builder
       .addCase(fetchTrailers.pending, (state) => {
-        state.loaded = true;
+        state.isLoading = true;
       })
       .addCase(fetchTrailers.fulfilled, (state, action) => {
-        state.loaded = false;
+        state.isLoading = false;
       state.trailers = action.payload;
     });
   },
 });
 
 export const selectTrailer = (state: RootState) => state.trailers.trailers;
-export const selectTrailerLoading = (state: RootState) => state.trailers.loaded;
+export const selectTrailerLoading = (state: RootState) => state.trailers.isLoading;
 
 export const selectTrailersNumbersAndIds = (state: RootState) => {
   if (!state.trailers.trailers) {

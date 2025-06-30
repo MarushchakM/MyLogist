@@ -4,7 +4,6 @@ const Home = async () => {
   
   return (
     <Heading title="Головна сторінка" description="Контент головної сторінки" />
-    
   );
 }
 

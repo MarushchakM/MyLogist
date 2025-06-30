@@ -9,10 +9,9 @@ import { Spinner } from "../Spinner";
 
 type Props = {
   sectionId: 'trucks' | 'trailers';
-  shouldFetch: boolean;
 }
 
-export const SubMenu: React.FC<Props> = ({sectionId, shouldFetch}) => {
+export const SubMenu: React.FC<Props> = ({sectionId}) => {
   const dispatch = useAppDispatch();
 
   const data = useAppSelector(state => {
@@ -50,15 +49,13 @@ export const SubMenu: React.FC<Props> = ({sectionId, shouldFetch}) => {
   });
 
   useEffect(() => {
-    if (shouldFetch) {
-      const fetchFn = {
-        trucks: fetchTrucks,
-        trailers: fetchTrailers
-      }[sectionId];
-
-      dispatch(fetchFn());
+    switch (sectionId) {
+      case 'trucks':
+        dispatch(fetchTrucks());
+      case 'trailers':
+        dispatch(fetchTrailers());
     }
-  }, [dispatch, sectionId, shouldFetch]);
+  }, [sectionId]);
 
   return (
     <ul className={style.subMenu}>
