@@ -23,6 +23,28 @@
       color: vars.$colorWhite;
     }
   }
+
+  .user {
+    padding: 10px;
+    background-color: vars.$colorGreen;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    .heading{
+      h3 {
+        margin: 0;
+        font-size: 14px;
+        color: vars.$colorWhite;
+        margin-bottom: 4px;
+      }
+      span {
+        font-size: 14px;
+        color: vars.$colorGrey-200;
+        
+      }
+    }
+  }
   .list {
     margin: 0;
     padding: 0;

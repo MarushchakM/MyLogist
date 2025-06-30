@@ -11,13 +11,13 @@
   }
 }
 .secondary {
-  border: 1px solid vars.$colorBlack;
+  border: 2px solid vars.$colorGreen;
   padding: 8px 8px;
   border-radius: 6px;
   transition-duration: vars.$duration;
   background-color: vars.$colorWhite;
   &:hover{
-    background-color: vars.$colorBlack;
+    background-color: vars.$colorGreen;
     color: vars.$colorWhite;
     transition-duration: vars.$duration;
   }

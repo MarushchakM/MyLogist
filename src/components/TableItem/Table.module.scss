@@ -1,0 +1,28 @@
+.item {
+  background-color: #E9EDF8;
+  border-radius: 10px;
+  display: flex;
+  justify-content: space-between;
+  padding: 25px;
+  .dataList {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    .dataListItem {
+      display: flex;
+      gap: 8px;
+    }
+  }
+  .rightData {
+    display: flex;
+    gap: 70px;
+    align-items: center;
+    img {
+      width: 115px;
+    }
+    .action {
+      display: flex;
+      flex-direction: column;
+    }
+  }
+}

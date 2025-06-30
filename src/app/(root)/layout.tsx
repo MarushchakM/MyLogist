@@ -9,6 +9,7 @@ import { Aside } from "@/components/Aside";
 import style from "./layout.module.scss";
 import { getNumbersTrailers } from "@/features/trailers/queries/getNumbersTrailers";
 import StoreProvider from "./StoreProvider";
+import { SessionProvider } from "next-auth/react";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -39,12 +40,15 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
-        <StoreProvider>
-          <div className={style.layoutContainer}>
-            <Aside trailers={trailers} />
-            <main className={style.main}>{children}</main>
-          </div>
-        </StoreProvider>
+        <SessionProvider session={session}>
+          <StoreProvider>
+            <div className={style.layoutContainer}>
+              <Aside trailers={trailers} />
+              <main className={style.main}>{children}</main>
+            </div>
+          </StoreProvider>
+        </SessionProvider>
+        
       </body>
     </html>
   );

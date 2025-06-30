@@ -1,12 +1,14 @@
 import { configureStore } from '@reduxjs/toolkit';
 import trucksReducer from './features/trucks/trucksSlice';
 import trailersReducer from './features/trailers/trailersSlice';
+import usersReducer from './features/users/usersSlice';
 
 export const makeStore = () => {
   return configureStore({
     reducer: {
       trucks: trucksReducer,
       trailers: trailersReducer,
+      users: usersReducer,
     },
   })
 }
