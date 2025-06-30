@@ -1,3 +1,5 @@
+import { LucideSquareArrowOutUpRight, LucideSquarePen, LucideTrash } from 'lucide-react';
+import { Button } from '../Button';
 import style from './Table.module.scss';
 
 type ItemData = {
@@ -18,7 +20,7 @@ export const TableItem: React.FC<Props> = ({ img, href, itemData }) => {
       <ul className={style.dataList}>
         {itemData.map((el, index) => (
           <li key={index} className={style.dataListItem}>
-            <h4 className={style.title}>{el.label}</h4>
+            <h4 className={style.title}>{el.label}:</h4>
             <p className={style.description}>
               {el.type === 'phone' ? (
                 <a href={`tel:${el.value}`}>{el.value}</a>
@@ -34,9 +36,9 @@ export const TableItem: React.FC<Props> = ({ img, href, itemData }) => {
       <div className={style.rightData}>
         <img src={img} alt="user" />
         <div className={style.action}>
-          <a href="#">Перейти</a>
-          <a href="#">Редагувати</a>
-          <a href="#">Видалити</a>
+          <Button variant='secondary' href='#'>Перейти <LucideSquareArrowOutUpRight size={20}/></Button>
+          <Button variant='secondary' href='#'>Редагувати <LucideSquarePen size={20}/></Button>
+          <Button variant='secondary' href='#'>Видалити <LucideTrash size={20}/></Button>
         </div>
       </div>
     </li>

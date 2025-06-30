@@ -9,7 +9,6 @@ const Home = async () => {
       <Heading title="Головна сторінка" description="Контент головної сторінки" />
 
     </>
-    
   );
 }
 

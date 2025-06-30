@@ -11,15 +11,21 @@
   }
 }
 .secondary {
-  border: 2px solid vars.$colorGreen;
-  padding: 8px 8px;
-  border-radius: 6px;
+  padding: 12px 14px;
+  border-radius: 12px;
   transition-duration: vars.$duration;
   background-color: vars.$colorWhite;
+  font-size: 16px;
+  display: flex;
+  gap: 4px;
+  align-items: center;
+  justify-content: center;
   &:hover{
-    background-color: vars.$colorGreen;
-    color: vars.$colorWhite;
+    background-color: vars.$colorWhite-100;
     transition-duration: vars.$duration;
+  }
+  &:active {
+    background-color: vars.$colorWhite-200;
   }
 }
 

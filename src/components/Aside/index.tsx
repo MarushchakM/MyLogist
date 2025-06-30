@@ -4,27 +4,14 @@ import Link from 'next/link';
 import style from './aside.module.scss';
 import { homePath, trailersPath, trucksPath, usersPath } from '@/paths';
 import { LucideCar, LucideCaravan, LucideSquareUser, LucideUsers } from 'lucide-react';
-import { Prisma } from '@prisma/client';
 import { MenuItem } from '../MenuItem';
 import { useSession } from 'next-auth/react';
 
-type TrailerNumber = Prisma.TrailerGetPayload<{
-  select: {
-    id: true;
-    number: true;
-  };
-}>;
-
-type Props = {
-  trailers: TrailerNumber[];
-}
-
-export const Aside: React.FC<Props> = () => {  
+export const Aside = () => {  
   const { data: session } = useSession();
   const user = session?.user;
 
   return (
-    
     <aside className={style.aside}>
       <Link href={homePath()} className={style.logo}>
         <img className={style.logoIcon} src="./logo.png" alt="logo" />

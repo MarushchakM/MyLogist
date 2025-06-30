@@ -7,7 +7,6 @@ import { redirect } from "next/navigation";
 import { signInPath } from "@/paths";
 import { Aside } from "@/components/Aside";
 import style from "./layout.module.scss";
-import { getNumbersTrailers } from "@/features/trailers/queries/getNumbersTrailers";
 import StoreProvider from "./StoreProvider";
 import { SessionProvider } from "next-auth/react";
 
@@ -35,20 +34,17 @@ export default async function RootLayout({
   const session = await auth();
   if (!session) redirect(signInPath());
 
-  const trailers = await getNumbersTrailers();
-  
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
         <SessionProvider session={session}>
           <StoreProvider>
             <div className={style.layoutContainer}>
-              <Aside trailers={trailers} />
+              <Aside />
               <main className={style.main}>{children}</main>
             </div>
           </StoreProvider>
         </SessionProvider>
-        
       </body>
     </html>
   );

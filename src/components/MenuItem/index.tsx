@@ -13,13 +13,9 @@ type Props = {
 }
 export const MenuItem: React.FC<Props> = ({ label, href, icon, subMenu }) => {
   const [isOpenList, setIsOpenList] = useState<boolean>(false);
-  const [hasFetchedData, setHasFetchedData] = useState<boolean>(false);
 
   const handleShowList = () => {
     setIsOpenList(!isOpenList);
-    if (!isOpenList && subMenu && !hasFetchedData) {
-      setHasFetchedData(true);
-    }
   };
 
   return (
@@ -38,7 +34,7 @@ export const MenuItem: React.FC<Props> = ({ label, href, icon, subMenu }) => {
       </div>
 
       {subMenu && isOpenList &&
-        <SubMenu sectionId={subMenu} shouldFetch={hasFetchedData}/>
+        <SubMenu sectionId={subMenu}/>
       }
     </li>
     
