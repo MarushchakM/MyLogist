@@ -7,7 +7,6 @@ import { redirect } from "next/navigation";
 import { signInPath } from "@/paths";
 import { Aside } from "@/components/Aside";
 import style from "./layout.module.scss";
-import { getNumbersTrailers } from "@/features/trailers/queries/getNumbersTrailers";
 import StoreProvider from "./StoreProvider";
 
 const geistSans = Geist({
