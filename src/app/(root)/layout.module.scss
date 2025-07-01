@@ -1,0 +1,20 @@
+@use "../../styles/variable" as vars;
+
+.layoutContainer {
+  display: flex;
+  background-color: vars.$colorBlue;
+  min-height: 100vh;
+  align-items: stretch;
+  .main {
+    background-color: vars.$colorWhite;
+    width: 100%;
+    max-height: auto;
+    margin: 24px 24px 0;
+    align-self: flex-start;
+    border-radius: 20px;
+    padding: 24px;
+    h2 {
+      margin: 0;
+    }
+  }
+}

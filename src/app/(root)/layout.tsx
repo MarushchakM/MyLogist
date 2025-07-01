@@ -1,10 +1,13 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import 'normalize.css';
 import "../globals.scss";
-import { Header } from "@/components/Header";
 import { auth } from "@/lib/auth";
 import { redirect } from "next/navigation";
 import { signInPath } from "@/paths";
+import { Aside } from "@/components/Aside";
+import style from "./layout.module.scss";
+import StoreProvider from "./StoreProvider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -29,12 +32,16 @@ export default async function RootLayout({
 
   const session = await auth();
   if (!session) redirect(signInPath());
-  
+
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
-        <Header />
-        <main>{children}</main>
+        <StoreProvider>
+          <div className={style.layoutContainer}>
+            <Aside />
+            <main className={style.main}>{children}</main>
+          </div>
+        </StoreProvider>
       </body>
     </html>
   );
