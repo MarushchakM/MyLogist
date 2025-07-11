@@ -27,10 +27,17 @@ export const { auth, handlers, signIn } = NextAuth({
         throw new Error('Користувача з таким email не знайдено.');
       }
 
+      if (!user.password) {
+        throw new Error('Користувач не має встановленого пароля.');
+      }
+
       const passwordMatch = await bcrypt.compare(password, user.password);
 
       if (passwordMatch) {
-        return user;
+        return {
+        ...user,
+        avatarUrl: user.avatarUrl ?? '',
+      };
       } else {
         throw new Error('Невірний пароль.');
       }

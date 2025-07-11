@@ -1,0 +1,21 @@
+@use '../../styles/variable' as vars;
+
+.searchBlock {
+  position: relative;
+  .icon {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    left: 12px;
+  }
+  .search {
+    width: 100%;
+    border-radius: 50px;
+    border: 1px solid vars.$colorGrey-100;
+    padding: 12px 48px;
+    font-size: 16px;
+    &:active {
+      border: 1px solid vars.$colorGrey-200;
+    }
+  }
+}

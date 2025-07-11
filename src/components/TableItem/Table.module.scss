@@ -1,5 +1,7 @@
+@use '../../styles/variable' as vars;
+
 .item {
-  background-color: #E9EDF8;
+  background-color: vars.$colorBlueLight;
   border-radius: 10px;
   display: flex;
   justify-content: space-between;

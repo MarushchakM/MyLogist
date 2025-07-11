@@ -1,25 +1,30 @@
 @use '../../styles/variable' as vars;
-.primary {
-  background-color: #2ab917;
-  border: none;
-  padding: 8px 8px;
-  border-radius: 6px;
-  cursor: pointer;
-  &:hover {
-    background-color: #1a9709;
-    transition-duration: vars.$duration;
-  }
-}
-.secondary {
+.btn {
   padding: 12px 14px;
   border-radius: 12px;
-  transition-duration: vars.$duration;
-  background-color: vars.$colorWhite;
   font-size: 16px;
   display: flex;
   gap: 4px;
   align-items: center;
   justify-content: center;
+  cursor: pointer;
+  outline: none;
+  border: none;
+}
+.primary {
+  background-color: vars.$colorBlueLight;  
+  &:hover {
+    background-color: vars.$colorBlueLight-100;
+    transition-duration: vars.$duration;
+  }
+  &:active {
+    background-color: vars.$colorBlueLight-200;
+    transition-duration: vars.$duration;
+  }
+}
+.secondary {
+  transition-duration: vars.$duration;
+  background-color: vars.$colorWhite;
   &:hover{
     background-color: vars.$colorWhite-100;
     transition-duration: vars.$duration;

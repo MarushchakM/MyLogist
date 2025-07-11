@@ -21,7 +21,7 @@ export const Button: React.FC<Props> = ({
   onClick,
   className,
 }) => {
-  const combinedClass = clsx(styles[variant], className);
+  const combinedClass = clsx(styles[variant], styles.btn, className);
 
   if (href) {
     return (

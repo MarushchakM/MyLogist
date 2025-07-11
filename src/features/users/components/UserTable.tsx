@@ -1,13 +1,15 @@
 'use client';
 
 import { Table } from "@/components/Table";
-import { fetchUsers, selectUsersLoading, selectUsersPrev } from "@/lib/features/users/usersSlice";
+import { fetchUsers, selectFilteredUsers, selectUsersLoading } from "@/lib/features/users/usersSlice";
 import { useAppDispatch, useAppSelector } from "@/lib/hooks";
+import { usersCreatePath } from "@/paths";
+import { LucidePlus } from "lucide-react";
 import { useEffect } from "react";
 
 export const UserTable = () => {
   const dispatch = useAppDispatch();
-  const users = useAppSelector(selectUsersPrev);
+  const users = useAppSelector(selectFilteredUsers);
   const isLoading = useAppSelector(selectUsersLoading);
 
   useEffect(() => {
@@ -23,10 +25,12 @@ export const UserTable = () => {
         { label: 'Працівник', value: `${user.firstName} ${user.lastName}` },
         { label: 'Посада', value: user.role },
         { label: 'Емейл', type: 'email', value: user.email } as const,
-        { label: 'Телефон', type: 'phone', value: user.phoneNumber, } as const,
+        { label: 'Телефон', type: 'phone', value: user.phone } as const,
       ],
     }
   )) || [];  
 
-  return (<Table title="Працівники" loader={isLoading} data={usersData}/>);
+  const action = [{label: 'Додати працівника', link: usersCreatePath(), icon: LucidePlus}]
+
+  return (<Table loader={isLoading} data={usersData} actions={action}/>);
 }

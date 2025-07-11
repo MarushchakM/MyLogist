@@ -1,6 +1,6 @@
 import { RootState } from "@/lib/store";
-import { User } from "@prisma/client";
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { Role, User } from "@prisma/client";
+import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 export const fetchUsers = createAsyncThunk(
   'users/fetchUsers',
@@ -14,17 +14,38 @@ export const fetchUsers = createAsyncThunk(
 interface UserState {
   users: User[] | null;
   loaded: boolean;
+  searchTerm: string;
+  roleFilter: Role | null;
 }
 
 const initialState: UserState = {
   users: null,
   loaded: false,
+  searchTerm: '',
+  roleFilter: null,
+};
+
+const roleTranslations: Record<Role, string> = {
+  [Role.ADMIN]: 'Адміністратор',
+  [Role.DISPATCHER]: 'Диспетчер',
+  [Role.DRIVER]: 'Водій',
+};
+
+const getRoleTranslation = (role: Role): string => {
+  return roleTranslations[role] || role;
 };
 
 export const usersSlice = createSlice({
   name: 'users',
   initialState,
-  reducers: {},
+  reducers: {
+    setSearchTerm: (state, action: PayloadAction<string>) => {
+      state.searchTerm = action.payload;
+    },
+    setRoleFilter: (state, action: PayloadAction<Role | null>) => {
+      state.roleFilter = action.payload;
+    }
+  },
   extraReducers: builder => {
     
     builder
@@ -41,20 +62,34 @@ export const usersSlice = createSlice({
 export const selectUsers = (state: RootState) => state.users.users;
 export const selectUsersLoading = (state: RootState) => state.users.loaded;
 
-export const selectUsersPrev = (state: RootState) => {
-  if (!state.users.users) {
-    return null;
-  }
-  return state.users.users.map(user => ({
+export const selectFilteredUsers = (state: RootState) => {
+  const { users, searchTerm, roleFilter } = state.users;
+
+  if (!users) return null;
+
+  const lowerCaseSearchTerm = searchTerm.toLowerCase();
+  
+  return users
+  .filter(user => {
+    const matchesSearch = user.firstName.toLowerCase().includes(lowerCaseSearchTerm) ||
+                          user.lastName.toLowerCase().includes(lowerCaseSearchTerm);
+
+    const matchesRole = roleFilter === null || user.role === roleFilter;
+
+    return matchesSearch && matchesRole;
+  })
+  .map(user => ({
     id: user.id,
     firstName: user.firstName,
     lastName: user.lastName,
     email: user.email,
-    phoneNumber: user.phoneNumber,
-    role: user.role,
+    phone: user.phone,
+    role: getRoleTranslation(user.role),
     avatarUrl: user.avatarUrl,
   }));
-};
+}
+
+export const { setSearchTerm, setRoleFilter } = usersSlice.actions;
 
 export default usersSlice.reducer;
 

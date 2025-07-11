@@ -14,7 +14,7 @@ type Props = {
   itemData: ItemData[];
 }
 
-export const TableItem: React.FC<Props> = ({ img, href, itemData }) => {
+export const TableItem: React.FC<Props> = ({ img, itemData }) => {
   return (
     <li className={style.item} >
       <ul className={style.dataList}>

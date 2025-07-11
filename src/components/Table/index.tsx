@@ -2,8 +2,7 @@
 
 import style from './Table.module.scss';
 import { Button } from '../Button';
-import { useSession } from 'next-auth/react';
-import { LucideSquarePen } from 'lucide-react';
+import { LucideIcon } from 'lucide-react';
 import { Spinner } from '../Spinner';
 import { TableItem } from '../TableItem';
 
@@ -18,19 +17,27 @@ type Data = {
   itemData: ItemData[];
 };
 
+type Action = {
+  label: string;
+  link: string;
+  icon?: LucideIcon;
+}
+
 type Props = {
-  title: string;
   loader: boolean;
   data: Data[];
+  actions?: Action[];
 };
-export const Table: React.FC<Props> = ({ title, loader, data }) => {
-  const { data: session } = useSession();
-
+export const Table: React.FC<Props> = ({ loader, data, actions }) => {
   return (
     <div className={style.table}>
-      <div className={style.heading}>
-        <h2>{title}</h2>
-        {session?.user.role === 'ADMIN' && <Button variant='icon' href='#'><LucideSquarePen /></Button>}
+      <div className={style.action}>
+        {actions?.map((action, index) => (
+          <Button key={index} href={action.link}>
+            {action.label}
+            {action.icon && <action.icon size={18} />}
+          </Button>
+        ))}
       </div>
       {loader ? <Spinner /> : (
         <ul className={style.tableList}>
