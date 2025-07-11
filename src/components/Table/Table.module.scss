@@ -1,14 +1,20 @@
 @use '../../styles/variable' as vars;
 
 .table {
-  width: 100%;
-  background-color: vars.$colorGrey-200;
-  padding: 8px;
-  border-radius: 8px;
-  th{
-    text-align: left;
+  .heading {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 40px;
   }
-  .icon {
-    width: 24px;
+  .action {
+    display: flex;
+    gap: 8px;
+  }
+  .tableList {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
   }
 }
+

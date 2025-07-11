@@ -1,6 +1,5 @@
 import { Button } from "@/components/Button";
 import { Container } from "@/components/Container";
-import { Heading } from "@/components/Heading";
 import { getTruck } from "@/features/trucks/queries/getTruck";
 import { trucksPath } from "@/paths";
 import styles from "./TruckPage.module.scss";
@@ -23,11 +22,7 @@ const TruckPage = async ({
 
   return (
     <>
-      <Container>
-        <Heading
-          title={`Тягач ${truck?.number}`}
-          description="Детальна інформація"
-        />
+      <Container title={`Тягач ${truck?.number}`}>
         <div className={styles.buttons}>
           <Button href={trucksPath()} variant="secondary">
             До списку авто

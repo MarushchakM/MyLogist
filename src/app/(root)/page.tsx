@@ -1,9 +1,14 @@
 import { Heading } from "@/components/Heading";
+import { SignOutButton } from "@/components/sign-out";
 
 const Home = async () => {
   
   return (
-    <Heading title="Головна сторінка" description="Контент головної сторінки" />
+    <>
+      <SignOutButton />
+      <Heading title="Головна сторінка" description="Контент головної сторінки" />
+
+    </>
   );
 }
 

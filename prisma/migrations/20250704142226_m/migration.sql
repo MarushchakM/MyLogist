@@ -17,9 +17,9 @@ CREATE TYPE "DocumentType" AS ENUM ('INSURANCE_UA', 'INSURANCE_GREEN', 'TECH_INS
 CREATE TABLE "User" (
     "id" TEXT NOT NULL,
     "email" TEXT NOT NULL,
-    "password" TEXT NOT NULL,
+    "password" TEXT,
     "role" "Role" NOT NULL DEFAULT 'DRIVER',
-    "phoneNumber" TEXT NOT NULL,
+    "phone" TEXT NOT NULL,
     "firstName" TEXT NOT NULL,
     "lastName" TEXT NOT NULL,
     "middleName" TEXT,
@@ -36,6 +36,7 @@ CREATE TABLE "Truck" (
     "id" TEXT NOT NULL,
     "number" TEXT NOT NULL,
     "status" "TruckStatus" NOT NULL DEFAULT 'FREE',
+    "avatarUrl" TEXT,
     "trailerId" TEXT,
     "driverId" TEXT,
 
@@ -48,6 +49,7 @@ CREATE TABLE "Trailer" (
     "number" TEXT NOT NULL,
     "status" "TrailerStatus" NOT NULL DEFAULT 'FREE',
     "type" "TrailerType" NOT NULL,
+    "avatarUrl" TEXT,
     "driverId" TEXT,
 
     CONSTRAINT "Trailer_pkey" PRIMARY KEY ("id")
@@ -78,7 +80,7 @@ CREATE TABLE "DocumentImage" (
 CREATE UNIQUE INDEX "User_email_key" ON "User"("email");
 
 -- CreateIndex
-CREATE UNIQUE INDEX "User_phoneNumber_key" ON "User"("phoneNumber");
+CREATE UNIQUE INDEX "User_phone_key" ON "User"("phone");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "Truck_number_key" ON "Truck"("number");

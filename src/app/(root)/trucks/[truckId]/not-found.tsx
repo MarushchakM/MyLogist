@@ -4,8 +4,7 @@ import { trucksPath } from "@/paths";
 
 export default function NotFound() {
   return (
-    <Container>
-      <h2>Авто не найдено</h2>
+    <Container title="Авто не найдено">
       <Button href={trucksPath()} variant="secondary">
         Повернутись до списку
       </Button>

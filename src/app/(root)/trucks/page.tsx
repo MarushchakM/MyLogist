@@ -1,13 +1,13 @@
 import { Container } from "@/components/Container";
-import { TruckTable } from "@/features/trucks/components/TruckTable";
+// import { TruckTable } from "@/features/trucks/components/TruckTable";
 import { TruckHeading } from "@/features/trucks/components/TruckHeading";
 
 const TrackPage = async () => {
   return (
     <>
-      <Container>
+      <Container title="Тягачі">
         <TruckHeading />
-        <TruckTable />
+        {/* <TruckTable /> */}
       </Container>
     </>
   );

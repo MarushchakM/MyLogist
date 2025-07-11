@@ -1,23 +1,45 @@
 'use client';
 
-import { CreateTruckInputs } from "@/features/trucks/components/CreateForm";
-import { FieldError, UseFormRegister } from "react-hook-form";
+import { FieldError, FieldValues, Path, UseFormRegister } from "react-hook-form";
+import style from './Input.module.scss'
+import clsx from "clsx";
 
-type Props = {
-  register: UseFormRegister<CreateTruckInputs>;
+type Props<T extends FieldValues> = {
+  register: UseFormRegister<T>;
   label?: string;
   type?: string;
-  name: keyof CreateTruckInputs;
+  name: Path<T>;
   placeholder?: string;
   error?: FieldError | undefined;
 }
 
-export const Input: React.FC<Props> = ({register, label, type="text", name, placeholder, error}) => {
+export const Input = <T extends FieldValues>(
+  {
+    register,
+    label,
+    type = "text",
+    name,
+    placeholder,
+    error
+  }: Props<T>
+) => {
   return (
-    <div>
-      {label && (<label htmlFor={name}>{label}</label>)}
-      <input id={name} type={type} placeholder={placeholder} {...register("truckNumber")} />
-      <p>{error && error.message}</p>
+    <div className={style.inputBlock}>
+      {label && (
+        <label htmlFor={name} className={style.label}>
+          {label}
+        </label>
+      )}
+      <input
+        className={clsx(style.input, { [style.inputError]: error })}
+        id={name}
+        type={type}
+        placeholder={placeholder}
+        {...register(name)}
+      />
+      <p className={style.error}>
+        {error && error.message}
+      </p>
     </div>
   );
 };

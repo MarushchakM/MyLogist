@@ -1,41 +1,51 @@
-import { LucideSquareArrowOutUpRight } from 'lucide-react';
-import styles from './Table.module.scss';
-import { Button } from '../Button';
+"use client"
 
-type Row = {
-  [key: string]: string;
+import style from './Table.module.scss';
+import { Button } from '../Button';
+import { LucideIcon } from 'lucide-react';
+import { Spinner } from '../Spinner';
+import { TableItem } from '../TableItem';
+
+type ItemData = {
+  label: string;
+  type?: 'email' | 'phone';
+  value: string;
+}
+type Data = {
+  img: string;
+  href: string;
+  itemData: ItemData[];
 };
+
+type Action = {
+  label: string;
+  link: string;
+  icon?: LucideIcon;
+}
 
 type Props = {
-  titles: string[];
-  rows: Row[];
-  path: string;
+  loader: boolean;
+  data: Data[];
+  actions?: Action[];
 };
-export const Table: React.FC<Props> = ({ titles, rows, path }) => {
+export const Table: React.FC<Props> = ({ loader, data, actions }) => {
   return (
-    <table className={styles.table}>
-      <thead>
-        <tr className={styles.headRow}>
-          {titles.map((title, index) => (
-            <th key={index}>{title}</th>
-          ))}
-        </tr>
-      </thead>
-
-      <tbody>
-        {rows.map((row, rowIndex) => (
-          <tr key={rowIndex} className={styles.row}>
-            {Object.values(row).map((cell, cellIndex) =>
-              cell !== row.id ? <td key={cellIndex}>{cell}</td> : null
-            )}
-            <td className={styles.icon}>
-              <Button href={`${path}/${row.id}`} variant='icon'>
-                <LucideSquareArrowOutUpRight className={styles.icon} />
-              </Button>
-            </td>
-          </tr>
+    <div className={style.table}>
+      <div className={style.action}>
+        {actions?.map((action, index) => (
+          <Button key={index} href={action.link}>
+            {action.label}
+            {action.icon && <action.icon size={18} />}
+          </Button>
         ))}
-      </tbody>
-    </table>
-  );
+      </div>
+      {loader ? <Spinner /> : (
+        <ul className={style.tableList}>
+          {data.map((item, index) => (
+            <TableItem key={index} img={item.img} href={item.href} itemData={item.itemData} />
+          ))}
+        </ul>
+      )}
+    </div>
+  )
 };
