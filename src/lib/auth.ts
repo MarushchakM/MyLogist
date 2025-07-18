@@ -8,8 +8,8 @@ import { signInPath } from '@/paths';
 export const { auth, handlers, signIn } = NextAuth({
   providers: [Credentials({
     credentials: {
-      email: {},
-      password: {}
+      email: { label: 'Email', type: 'text' },
+      password: { label: 'Password', type: 'password' },
     },
     authorize: async  (credentials) => {
       const email = credentials.email as string;

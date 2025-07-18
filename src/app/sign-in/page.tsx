@@ -1,6 +1,6 @@
 'use client';
 
-import { signIn } from "@/lib/auth";
+import { signIn } from "next-auth/react";
 import { executeAction } from "@/lib/executeAction";
 import style from "./SignInPage.module.scss"
 import { Button } from "@/components/Button";
@@ -8,6 +8,7 @@ import { SubmitHandler, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { SignInSchema } from "@/schemas/SignInSchema";
 import { Input } from "@/components/Input";
+import { useState } from "react";
 
 type SignInInputs = {
   email: string;
@@ -24,18 +25,23 @@ const SignInPage = () => {
     mode: "onBlur",
   });
 
+  const [authError, setAuthError] = useState<string | null>(null);
+
   const onSubmit: SubmitHandler<SignInInputs> = async (data) => {
-
-    const formData = new FormData();
-    formData.append("email", data.email);
-    formData.append("password", data.password);
-
-    const result = await executeAction({
-      actionFn: async () => {
-        await signIn("credentials", formData);
-      },
-    });
-  }
+    const result = await signIn("credentials", {
+    redirect: false,
+    email: data.email,
+    password: data.password,
+  });
+    
+  if (result?.error) {
+    setAuthError(result.error);
+    console.error("Авторизація неуспішна:", result.error);
+    } else {
+      setAuthError(null);
+      console.log("Авторизація успішна!");
+    }
+  };
 
   return (
     <div className={style.signIn}>
@@ -48,13 +54,12 @@ const SignInPage = () => {
           register={register}
           label="Email"
           name="email"
-          type='email'
           placeholder='Email'
           error={errors.email}
         />
         <Input
           register={register}
-          label="Пароль"
+          label="Password"
           name="password"
           type='password'
           placeholder='Придумайте пароль'
@@ -62,6 +67,9 @@ const SignInPage = () => {
         />
         <Button variant="secondary" type="submit">Увійти</Button>
       </form>
+
+      {authError && <p className={style.errorText}>{authError}</p>}
+      
     </div>
     
   )
