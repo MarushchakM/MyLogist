@@ -2,6 +2,7 @@ import { configureStore } from '@reduxjs/toolkit';
 import trucksReducer from './features/trucks/trucksSlice';
 import trailersReducer from './features/trailers/trailersSlice';
 import usersReducer from './features/users/usersSlice';
+import userReducer from './features/user/userSlice';
 
 export const makeStore = () => {
   return configureStore({
@@ -9,6 +10,7 @@ export const makeStore = () => {
       trucks: trucksReducer,
       trailers: trailersReducer,
       users: usersReducer,
+      user: userReducer,
     },
   })
 }

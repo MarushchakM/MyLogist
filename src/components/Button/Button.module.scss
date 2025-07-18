@@ -1,8 +1,7 @@
 @use '../../styles/variable' as vars;
 .btn {
-  padding: 12px 14px;
+  padding: 12px 24px;
   border-radius: 12px;
-  font-size: 16px;
   display: flex;
   gap: 4px;
   align-items: center;
@@ -10,6 +9,8 @@
   cursor: pointer;
   outline: none;
   border: none;
+  font-size: 16px;
+  font-weight: 500;
 }
 .primary {
   background-color: vars.$colorBlueLight;  
@@ -24,13 +25,15 @@
 }
 .secondary {
   transition-duration: vars.$duration;
-  background-color: vars.$colorWhite;
+  background-color: vars.$lightGrin-100;
+  border: 1px solid transparent;
   &:hover{
-    background-color: vars.$colorWhite-100;
+    background-color: vars.$lightGrin-200;
+    border: 1px solid vars.$lightGrin-300;
     transition-duration: vars.$duration;
   }
   &:active {
-    background-color: vars.$colorWhite-200;
+    background-color: vars.$lightGrin-300;
   }
 }
 
