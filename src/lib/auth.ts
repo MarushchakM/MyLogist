@@ -18,47 +18,16 @@ export const { auth, handlers, signIn } = NextAuth({
 
       console.log(email);
 
-      if (!email) {
-        return Promise.reject(
-          new Error(JSON.stringify({
-            field: 'email',
-            message: 'Будь ласка, введіть email.'
-          }))
-        );
-      // throw new Error(JSON.stringify({ field: 'email', message: 'Будь ласка, введіть email.' }));
-      }
-      if (!password) {
-        return Promise.reject(
-          new Error(JSON.stringify({
-            field: 'password',
-            message: 'Будь ласка, введіть пароль.'
-          }))
-        );
-        // throw new Error(JSON.stringify({ field: 'password', message: 'Будь ласка, введіть пароль.' }));
+      if (!email || !password) {
+        return null;
       }
 
        const user = await prisma.user.findUnique({
         where: { email },
        });
       
-      if (!user) {
-        return Promise.reject(
-          new Error(JSON.stringify({
-            field: 'email',
-            message: 'Користувача з таким email не знайдено.'
-          }))
-        );
-        // throw new Error(JSON.stringify({ field: 'email', message: 'Користувача з таким email не знайдено.' }));
-      }
-
-      if (!user.password) {
-        return Promise.reject(
-          new Error(JSON.stringify({
-            field: 'password',
-            message: 'Користувач не має встановленого пароля.'
-          }))
-        );
-        // throw new Error(JSON.stringify({ field: 'password', message: 'Користувач не має встановленого пароля.' }));
+      if (!user || !user.password) {
+        return null;
       }
 
       const passwordMatch = await bcrypt.compare(password, user.password);
@@ -69,13 +38,7 @@ export const { auth, handlers, signIn } = NextAuth({
         avatarUrl: user.avatarUrl ?? '',
       };
       } else {
-        return Promise.reject(
-          new Error(JSON.stringify({
-            field: 'password',
-            message: 'Невірний пароль.'
-          }))
-        );
-        // throw new Error(JSON.stringify({ field: 'password', message: 'Невірний пароль.' }));
+        return null;
       }
     }
   })],

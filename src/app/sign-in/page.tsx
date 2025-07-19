@@ -83,23 +83,18 @@ const SignInPage = () => {
       });
 
       if (result?.error) {
-        console.log("Raw error from result:", result.error);
+        console.log("Auth error:", result.error);
 
-        try {
-          const parsedError = JSON.parse(result.error);
-          if (parsedError.field) {
-            setError(parsedError.field as "email" | "password", {
-              type: "server",
-              message: parsedError.message,
-            });
-          } else {
-            setError("email", {
-              type: "server",
-              message: "Помилка авторизації. Перевірте ваші дані.",
-            });
-          }
-        } catch (parseError) {
-          console.error("Error parsing auth error:", parseError);
+        // Handle NextAuth v5 error types
+        if (
+          result.error === "CredentialsSignin" ||
+          result.error === "CallbackRouteError"
+        ) {
+          setError("email", {
+            type: "server",
+            message: "Неправильний email або пароль.",
+          });
+        } else {
           setError("email", {
             type: "server",
             message: "Помилка авторизації. Спробуйте ще раз.",
@@ -107,6 +102,11 @@ const SignInPage = () => {
         }
       } else if (result?.ok) {
         console.log("Авторизація успішна! Очікуємо редірект...");
+      } else {
+        setError("email", {
+          type: "server",
+          message: "Невідома помилка. Спробуйте ще раз.",
+        });
       }
     } catch (error) {
       console.error("Unexpected error during sign in:", error);
