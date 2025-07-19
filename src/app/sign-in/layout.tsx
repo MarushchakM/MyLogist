@@ -1,16 +1,14 @@
 import { auth } from "@/lib/auth";
 import { homePath } from "@/paths";
-import { Geist, Geist_Mono } from "next/font/google";
+import 'normalize.css';
+import "../globals.scss";
+import { Inter } from "next/font/google"
 import { redirect } from "next/navigation";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const inter = Inter({
   subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
+  variable: "--font-inter",
+  weight: ['500', '600'],
 });
 
 export default async function RootLayout({
@@ -24,7 +22,7 @@ export default async function RootLayout({
 
   return (
     <html lang="en">
-      <body className={`${geistSans.variable} ${geistMono.variable}`}>
+      <body className={inter.variable}>
         <main>{children}</main>
       </body>
     </html>

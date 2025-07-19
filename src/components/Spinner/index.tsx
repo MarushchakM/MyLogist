@@ -1,10 +1,13 @@
 import { LucideLoader } from "lucide-react";
 import styles from './Spinner.module.scss';
 
-const Spinner = () => {
+type Props = {
+  size?: number;
+}
+const Spinner: React.FC<Props> = ({size = 36}) => {
   return (
     <div className={styles.spinner}>
-      <LucideLoader className={styles.spinnerIcon} />
+      <LucideLoader size={size} className={styles.spinnerIcon} />
     </div>
   );
 }

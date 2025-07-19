@@ -6,23 +6,26 @@
   flex-direction: column;
   gap: 8px;
   .label{
+    font-weight: 500;
     font-size: 16px;
-    margin-left: 20px;
   }
   .input{
     padding: 12px 18px;
-    border-radius: 50px;
+    border-radius: 8px;
     border: 1px solid vars.$colorGrey-100;
+    background-color: vars.$input-bg;
     &:focus {
       outline: none;
     }
   }
 
   .inputError {
-    border: 1px solid vars.$colorRed;
+    border: 1px solid vars.$colorRed-100;
   }
   .error {
-    color: vars.$colorRed;
+    color: vars.$colorRed-100;
+    margin: 0;
     margin-left: 20px;
+    
   }
 }

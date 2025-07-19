@@ -5,18 +5,36 @@ import bcrypt from 'bcryptjs';
 import { type User } from '@prisma/client';
 import { signInPath } from '@/paths';
 
+
 export const { auth, handlers, signIn } = NextAuth({
   providers: [Credentials({
     credentials: {
       email: { label: 'Email', type: 'text' },
       password: { label: 'Password', type: 'password' },
     },
-    authorize: async  (credentials) => {
+    authorize: async (credentials) => {
       const email = credentials.email as string;
       const password = credentials.password as string;
 
-      if (!email || !password) {
-        throw new Error('Будь ласка, введіть email та пароль.');
+      console.log(email);
+
+      if (!email) {
+        return Promise.reject(
+          new Error(JSON.stringify({
+            field: 'email',
+            message: 'Будь ласка, введіть email.'
+          }))
+        );
+      // throw new Error(JSON.stringify({ field: 'email', message: 'Будь ласка, введіть email.' }));
+      }
+      if (!password) {
+        return Promise.reject(
+          new Error(JSON.stringify({
+            field: 'password',
+            message: 'Будь ласка, введіть пароль.'
+          }))
+        );
+        // throw new Error(JSON.stringify({ field: 'password', message: 'Будь ласка, введіть пароль.' }));
       }
 
        const user = await prisma.user.findUnique({
@@ -24,11 +42,23 @@ export const { auth, handlers, signIn } = NextAuth({
        });
       
       if (!user) {
-        throw new Error('Користувача з таким email не знайдено.');
+        return Promise.reject(
+          new Error(JSON.stringify({
+            field: 'email',
+            message: 'Користувача з таким email не знайдено.'
+          }))
+        );
+        // throw new Error(JSON.stringify({ field: 'email', message: 'Користувача з таким email не знайдено.' }));
       }
 
       if (!user.password) {
-        throw new Error('Користувач не має встановленого пароля.');
+        return Promise.reject(
+          new Error(JSON.stringify({
+            field: 'password',
+            message: 'Користувач не має встановленого пароля.'
+          }))
+        );
+        // throw new Error(JSON.stringify({ field: 'password', message: 'Користувач не має встановленого пароля.' }));
       }
 
       const passwordMatch = await bcrypt.compare(password, user.password);
@@ -39,7 +69,13 @@ export const { auth, handlers, signIn } = NextAuth({
         avatarUrl: user.avatarUrl ?? '',
       };
       } else {
-        throw new Error('Невірний пароль.');
+        return Promise.reject(
+          new Error(JSON.stringify({
+            field: 'password',
+            message: 'Невірний пароль.'
+          }))
+        );
+        // throw new Error(JSON.stringify({ field: 'password', message: 'Невірний пароль.' }));
       }
     }
   })],

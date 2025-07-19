@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import styles from './Button.module.scss';
 import clsx from 'clsx';
+import { Spinner } from '../Spinner';
 
 type Props = {
   children: React.ReactNode;
@@ -9,6 +10,7 @@ type Props = {
   type?: "button" | "submit";
   onClick?: () => void;
   className?: string;
+  disabled?: boolean; 
   
 } & React.ButtonHTMLAttributes<HTMLButtonElement> &
   React.AnchorHTMLAttributes<HTMLAnchorElement>;
@@ -20,6 +22,7 @@ export const Button: React.FC<Props> = ({
   type = "button",
   onClick,
   className,
+  disabled
 }) => {
   const combinedClass = clsx(styles[variant], styles.btn, className);
 
@@ -36,8 +39,9 @@ export const Button: React.FC<Props> = ({
       type={type}
       onClick={onClick}
       className={combinedClass}
+      disabled={disabled}
     >
-      {children}
+      {disabled ? <Spinner size={18} /> : children }
     </button>
   );
 }
